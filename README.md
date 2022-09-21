@@ -19,13 +19,16 @@
 
 ### 登录界面
 <img src="./httpserver/picfile/用户登录界面.png" style="zoom:50%;" />
+登录界面
 
-<img src="./img/flow.png" style="zoom:50%;" />
+<img src="./httpserver/picfile/用户登录界面.png" style="zoom:50%;" />
+登录成功
+(前端界面很丑)
+
 ### 修改图片功能
 
-
-<img src="./img/flow.png" style="zoom:50%;" />
-
+<img src="./httpserver/picfile/上传图片成功.png" style="zoom:50%;" />
+如图，成功修改简历图片
 
 ## 后续优化
 
@@ -36,4 +39,4 @@
 
 ## 其他
 
-服务器有性能上的要求，但是离职太匆忙，没有交接时间，之前的压测文档没有找到，（呜呜呜）。后续可以在本地压测然后补上
+服务器有性能上的要求，但是离职太匆忙，没有交接时间，之前的压测文档没有找到（呜呜呜）。后续可以在本地压测然后补上
