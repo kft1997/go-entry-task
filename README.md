@@ -27,7 +27,7 @@
 ## 后续优化
 
 - 配置从代码中分离出，抽出成yml文件
-- conn连接一次
+- conn.Read\Write方法，一次读写可能无法将数据全部处理完，需要read\write直到eof
 - rpc服务发现功能
 - tcp连接实现心跳包
 
