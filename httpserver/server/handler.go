@@ -31,7 +31,8 @@ func (s *Server) ViewHandler(w http.ResponseWriter, r *http.Request) {
 func (s *Server) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := r.Form.Get("user")
-	password := r.Form.Get("pass") //前端没有做加密，api层加密，模拟真实用户请求
+	password := r.Form.Get("pass")
+	//前端没有做加密，api层加密，模拟真实用户请求
 	pass := common.GetMD5(password)
 	req := protocol.LoginReq{Username: username, Passwd: pass}
 	var rsp protocol.LoginRsp
