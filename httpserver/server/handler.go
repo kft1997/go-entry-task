@@ -31,7 +31,8 @@ func (s *Server) ViewHandler(w http.ResponseWriter, r *http.Request) {
 func (s *Server) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := r.Form.Get("user")
-	password := r.Form.Get("pass") //前端没有做加密，api层加密，模拟真实用户请求
+	password := r.Form.Get("pass")
+	//前端没有做加密，api层加密，模拟真实用户请求
 	pass := common.GetMD5(password)
 	req := protocol.LoginReq{Username: username, Passwd: pass}
 	var rsp protocol.LoginRsp
@@ -67,7 +68,7 @@ func (s *Server) QueryHandler(w http.ResponseWriter, r *http.Request) {
 		s.replayHttpErr(w)
 	} else {
 		info := userInfo{username, rsp.Nickname, rsp.PicUrl}
-		s.replyHttp(w, response{0, info})
+		s.replyHttp(w, response{http.StatusOK, info})
 	}
 }
 
@@ -84,7 +85,7 @@ func (s *Server) EditNickHandler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("rpc err:%v", err)
 		s.replayHttpErr(w)
 	} else {
-		s.replyHttp(w, response{0, ""})
+		s.replyHttp(w, response{http.StatusOK, ""})
 	}
 }
 
@@ -105,7 +106,8 @@ func (s *Server) EditPicHandler(w http.ResponseWriter, r *http.Request) {
 	var queryRsp protocol.QueryRsp
 	err = rpc.RpcCall("query", queryReq, &queryRsp)
 	if err != nil {
-		s.replyHttp(w, response{1, err.Error()})
+		log.Printf("parse err:%v", err)
+		s.replayHttpErr(w)
 	}
 	oldFilePath := queryRsp.PicUrl
 	if oldFilePath != "" && exist(oldFilePath) {
@@ -133,7 +135,7 @@ func (s *Server) EditPicHandler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("rpc err:%v", err)
 		s.replayHttpErr(w)
 	} else {
-		s.replyHttp(w, response{0, userInfo{"", "", picUrl}})
+		s.replyHttp(w, response{http.StatusOK, userInfo{"", "", picUrl}})
 	}
 }
 
