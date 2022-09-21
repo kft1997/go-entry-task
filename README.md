@@ -18,10 +18,13 @@
 ## 功能展示
 
 ### 登录界面
+<img src="./img/flow.png" style="zoom:50%;" />
 
-### 修改昵称功能
-
+<img src="./img/flow.png" style="zoom:50%;" />
 ### 修改图片功能
+
+
+<img src="./img/flow.png" style="zoom:50%;" />
 
 
 ## 后续优化
