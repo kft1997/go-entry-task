@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+ 
+<body>
+
+<div id="user_frame">
+    <p><label class="label_input">用户名</label><input type="text" name="user" id="username"  value="{{.Username}}" readonly/></p>
+    <p><label class="label_input">昵称</label><input type="text" name="nick" id="nickname" value="{{.Nickname}}"/></p>
+    <div id="login_control">
+        <input type="button" id="btn_edit" value="修改昵称"/>
+<!--        <input type="button" id="btn_logout" value="登出"/>-->
+        <input type="button" id="btn_query" value="查询"/>
+     </div>
+</div>
+
+<div>
+    <img src="{{.Url}}" id="Image" height="200" width="200" alt="暂无图片，可以上传一张">
+    <br>
+</div>
+<div>
+    <input id="inputFile" type="file" accept="image/*">
+    <input type="button" id="btn_submit" value="上传"/>
+    <br>
+    <img src="" id="InputImage">
+<!--    <script>-->
+<!--        const $ = document.getElementById.bind(document);-->
+<!--        const $inputFile = $('inputFile');-->
+<!--        const $previewImage = $('InputImage');-->
+<!--        $inputFile.addEventListener('change', function() {-->
+<!--            const file = this.files[0];-->
+<!--            $previewImage.src = file ? URL.createObjectURL(file) : '';-->
+<!--        }, this);-->
+<!--    </script>-->
+</div>
+
+</body>
+</html>
+
+<script>
+    var username = document.getElementById('username')
+    // btn_logout.onclick = function() {
+    //
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open('post', 'http://127.0.0.1:8000/logout')
+    //     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+    //     xhr.send("username=" + username.value)
+    //     console.log("send to logout")
+    //     xhr.onreadystatechange = function () {
+    //         if (xhr.readyState == 4 && xhr.status == 200) {
+    //             //console.log(xhr.responseText.replace("<string>","").replace("</string>",""))
+    //             var json = eval("("+xhr.responseText+")")
+    //             if (json.code === 0) {
+    //                 alert('登出成功!')
+    //             } else {
+    //                 alert("登出失败:" + json.msg)
+    //             }
+    //         }
+    //     }
+    // }
+
+    btn_edit.onclick = function() {
+        var username = document.getElementById("username")
+        var nickname = document.getElementById("nickname")
+
+        if (nickname.length < 1) {
+            alert('昵称长度不能小于1')
+            return
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', 'http://127.0.0.1:8000/editnick')
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+        xhr.send("user="+username.value+"&nick="+nickname.value)
+        //console.log("send to editnickname")
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var json = JSON.parse(xhr.responseText);
+                if (json.Code == 0) {
+                    alert('修改成功')
+                } else {
+                    alert("修改失败:" + json.Msg)
+                }
+            }
+        }
+    }
+
+    btn_query.onclick=function (){
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', 'http://127.0.0.1:8000/query?username='+username.value)
+        xhr.send()
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                //var json = eval("("+xhr.responseText+")")
+                var json = JSON.parse(xhr.responseText);
+                if (json.Code === 0) {
+                    //alert('查询成功!')
+                    var nickname = document.getElementById("nickname")
+                    nickname.value = json.Msg.Nickname
+                    var img = document.getElementById("Image")
+                    //document.getElementById("Image").setAttribute("src", json.Msg.Url)
+                    img.src = json.Msg.Url
+                    //location.reload()
+                    alert('查询成功!')
+                } else {
+                    alert("查询失败:" + json.Msg)
+                }
+            }
+        }
+    }
+
+    btn_submit.onclick=function (){
+        var fileList = document.querySelector('#inputFile').files;
+        if(!fileList.length){
+            alert('请选择文件');
+            return;
+        }
+        var fd = new FormData();   //构造FormData对象
+        var list = fileList[0].name.split(".")
+        var type = list[list.length-1]
+        fd.append('picture', fileList[0]);
+        var xhr = new XMLHttpRequest();   //创建对象
+        xhr.open('POST', 'http://127.0.0.1:8000/uploadpic?username='+username.value+'&type='+type, true);
+
+        xhr.send(fd);//发送时  Content-Type默认就是: multipart/form-data;
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var json = JSON.parse(xhr.responseText);
+                if (json.Code === 0) {
+                    var img = document.getElementById("Image")
+                    img.src = json.Msg.Url
+                    //document.getElementById("Image").setAttribute("src", json.Msg.Url)
+                    //console.log(json.Msg.Url)
+                    //location.reload()
+                    alert('上传成功!')
+                } else {
+                    alert("上传失败:" + json.Msg)
+                }
+            }
+        }
+    }
+
+</script>
+
+
