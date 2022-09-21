@@ -23,8 +23,8 @@
 <img src="./httpserver/picfile/登录成功界面.png" style="zoom:50%;" />
 登录成功界面
 (前端页面很丑)
-### 修改图片功能
 
+### 修改图片功能
 <img src="./httpserver/picfile/上传图片成功.png" style="zoom:50%;" />
 如图，成功修改简历图片
 
