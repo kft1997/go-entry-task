@@ -19,14 +19,20 @@
 
 ### 登录界面
 <img src="./httpserver/picfile/用户登录界面.png" style="zoom:50%;" />
-用户登录界面
+
+用户登录界面展示
+
 <img src="./httpserver/picfile/登录成功界面.png" style="zoom:50%;" />
-登录成功界面
+
+登录成功界面展示
+
 (前端页面很丑)
 
 ### 修改图片功能
+
 <img src="./httpserver/picfile/上传图片成功.png" style="zoom:50%;" />
-如图，成功修改简历图片
+
+修改简历图片功能展示
 
 
 ## 后续优化
