@@ -19,14 +19,31 @@
 ## 系统架构
 
 
+## 流程图
+
+### 用户登录
+<img src="./doc/pic/login.png" style="zoom:50%;" />
+
+注：用户登录时，redis会插入两条信息，一条<token:username>用于后续身份校验,一条<username:userinfo>,用于信息查询
+   用户信息更新时，会将<username:userinfo>从redis删除
+
+### 查询用户信息
+<img src="./doc/pic/query.png" style="zoom:50%;" />
+
+### 修改用户昵称
+<img src="./doc/pic/editName.png" style="zoom:50%;" />
+
+### 修改用户图片
+<img src="./doc/pic/editPic.png" style="zoom:50%;" />
+
 ## 功能展示
 
 ### 登录界面
-<img src="./httpserver/picfile/用户登录界面.png" style="zoom:50%;" />
+<img src="./doc/pic/用户登录界面.png" style="zoom:50%;" />
 
 用户登录界面展示
 
-<img src="./httpserver/picfile/登录成功界面.png" style="zoom:50%;" />
+<img src="./doc/pic/登录成功界面.png" style="zoom:50%;" />
 
 登录成功界面展示
 
@@ -34,7 +51,7 @@
 
 ### 修改图片功能
 
-<img src="./httpserver/picfile/上传图片成功.png" style="zoom:50%;" />
+<img src="./doc/pic/上传图片成功.png" style="zoom:50%;" />
 
 修改简历图片功能展示
 
@@ -45,6 +62,7 @@
 - conn.Read\Write方法，一次读写可能无法将数据全部处理完，需要read\write直到eof
 - rpc服务发现功能
 - tcp连接实现心跳包
+- 错误码规划
 
 ## 其他
 
